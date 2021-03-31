@@ -8,10 +8,13 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-@app.route('/preprocess/<table_name>', methods=['GET'])
-def preprocess(table_name):
+@app.route('/preprocess', methods=['GET'])
+def preprocess():
+    table_name = request.args.get('table')
+    file_name = request.args.get('file')
     print(table_name)
-    result = main_factory.preprocess_table(table_name)
+    print(file_name)
+    result = main_factory.preprocess_table(table_name, file_name)
     return jsonify(result)
 
 
