@@ -14,7 +14,8 @@ def macro(table_names, sel_cols, stnd_cols):
     stnd_cols_list = set(itertools.chain(*stnd_cols))
 
     for stnd_col in stnd_cols_list:  # 기준열들["11","33","29"]
-        if stnd_col in data.columns:
+        if not(data.empty) & (stnd_col not in data.columns):
+            stnd_cols_list.append(stnd_col)
             pass
         else:
             # 조인하려는 테이블 종류 받기
