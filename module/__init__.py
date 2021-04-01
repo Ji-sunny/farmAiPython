@@ -1,5 +1,6 @@
 __all__ = [
     'boxair',
+    'box',
     'boxiocrops',
     'efarmdesign',
     'efarmdesigndetail',

@@ -20,7 +20,7 @@ def preprocess_table(table_name, files_name):
         data = getattr(getattr(module, table_name), table_name)(data, table_name)
 
 
-        print("data2 : ", data)
+        # print("data2 : ", data)
         # 전처리한 데이터 새로운 테이블에 집어넣기
         oracle_db.create_data(data, table_name)
 
