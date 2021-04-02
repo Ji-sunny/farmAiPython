@@ -7,6 +7,10 @@ oracle_db = dbModule.Database()
 def macro(table_names, sel_cols, stnd_cols):
     data = pd.DataFrame()
 
+    # table_name None값 제거
+    for i in range(table_names.count(None)):
+        table_names.pop()
+
     for i, table_name in enumerate(table_names):
         globals()['data{}'.format(i)] = oracle_db.read_data_all(table_name)
         globals()['data{}'.format(i)] = globals()['data{}'.format(i)][sel_cols[i]]
