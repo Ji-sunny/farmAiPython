@@ -28,4 +28,7 @@ def logesticregression(table_name, cols_X, col_y, pred_cols_X):
     #예측된확률
     X_test =[pred_cols_X]
     predict = model.classes_, model.predict_proba(X_test)[0]
+
+    oracle_db.create_modeling_table(table_name, modeling_name, visualized_data)
+
     return predict, score
