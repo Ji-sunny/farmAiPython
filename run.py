@@ -21,6 +21,15 @@ def preprocess():
 @app.route('/macroprocess', methods=['POST'])
 def macroprocess():
     print("hello")
+    print(request.json)
+
+    result = {"result": "success"}
+    return jsonify(result)
+
+
+@app.route('/test', methods=['POST'])
+def test():
+    print("hello")
     params = json.loads(request.get_data(), encoding='utf-8')
     print(params)
     result = {"result": "success"}
