@@ -54,7 +54,28 @@ def perceptron(table_name, col_X, col_y):
     # plt.xlim(10,40)
     # plt.ylim(20,90)
     # plt.show()
-
-    return model, XX_min, XX_max, YY_min, YY_max, XX, YY, ZZ
+    # https://www.amcharts.com/demos/polar-scatter/
+    # scatter visualization
+    # category -> column명들 : col_X
+    # deliver_data_for_visualization = [
+    #   {"x": x좌표, "y": y좌표},
+    #   {"x": x좌표, "y": y좌표},
+    #   {"x": x좌표, "y": y좌표},
+    #   ...
+    # ]
+    # 
+    # kernel svm plot example
+    # import matplotlib.pyplot as plt
+    # %matplotlib inline
+    # plt.imshow(Z, interpolation='nearest', extent=(xx.min(), xx.max(), yy.min(), yy.max()), aspect='auto', origin='lower', cmap=plt.cm.PuOr_r)
+    # contours = plt.contour(xx, yy, Z, levels=[0], linewidths=3)
+    # plt.scatter(X[:, 0], X[:, 1], s=30, c=Y, cmap=plt.cm.Paired)
+    # idx = [0, 20, 40, 60]
+    # plt.scatter(X[idx, 0], X[idx, 1], c=Y[idx], s=200, alpha=0.5)
+    # for i in idx:
+    #     plt.annotate(i, xy=(X[i,0], X[i,1]+0.15), color='white')
+    
+    # model만 return 하도록 수정
+    return model
 
 # perceptron_Modified(data)
