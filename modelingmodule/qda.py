@@ -8,7 +8,7 @@ from dbmodule import dbModule
 
 oracle_db = dbModule.Database()
 
-def qda(table_name, col_X, col_y):
+def qda(table_name, col_X, col_y, pred_cols_X):
     data = oracle_db.read_data_all(table_name)
 
     X = pd.DataFrame(data, columns=col_X)
@@ -18,6 +18,7 @@ def qda(table_name, col_X, col_y):
 
     model = QuadraticDiscriminantAnalysis()
     model.fit(X, y)
-    y_pred = model.predict(X)
+    
+    y_pred = model.predict(pred_cols_X)
     
     return X, y, model, y_pred
