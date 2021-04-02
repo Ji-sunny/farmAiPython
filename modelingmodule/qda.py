@@ -20,5 +20,10 @@ def qda(table_name, col_X, col_y):
     y = data_minmax_scaled = minmax_scale(y)
 
     model = QuadraticDiscriminantAnalysis().fit(X, y)
-    
+
     return model
+
+
+# uses qda model & data for specific scatter visualization
+def visualizeqda():
+    return

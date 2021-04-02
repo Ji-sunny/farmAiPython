@@ -79,3 +79,8 @@ def perceptron(table_name, col_X, col_y):
     return model
 
 # perceptron_Modified(data)
+
+# uses perceptron model & data for kernel svm visualization
+def visualizeperceptron():
+    
+    return
