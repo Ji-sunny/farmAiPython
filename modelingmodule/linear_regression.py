@@ -12,7 +12,7 @@ oracle_db = dbModule.Database()
 
 # 단순회귀분석
 def simple_reg(table_name, col_X, col_y, pred_cols_X):
-    data = oracle_db.read_data(table_name)
+    data = oracle_db.read_data_all(table_name)
     X = data[col_X]
     y = data[col_y]
 
@@ -35,11 +35,6 @@ def multi_reg(table_name, cols_X, col_y, pred_cols_X):
     model = LinearRegression()
     model.fit(train_X, train_y)
 
-    # 모형 평가
-    # 결정계수
-    r2_score = model.score(train_X, train_y)
-    # rmse
-    rmse = math.sqrt(mean_squared_error(train_y, model.predict(train_X)))
 
     # 입력받은 데이터값의 예측 결과값
     pred_cols_X = pd.dataFrame(pred_cols_X, columns=cols_X)
@@ -50,7 +45,15 @@ def multi_reg(table_name, cols_X, col_y, pred_cols_X):
         a = {"data": "data"+i, col_y: pred}
         pred_result.append(a)
 
-    return scores, pred_result
+    # 모형 평가
+    # 결정계수
+    r2_score = model.score(train_X, train_y)
+    # rmse
+    rmse = math.sqrt(mean_squared_error(train_y, model.predict(train_X)))
+    # 상관계수
+    cor = test_y.corr(pred_col_y)
+
+    return pred_result, r2_score, rmse, cor
 
 
 # 포뮬러
@@ -58,3 +61,7 @@ def formula_reg():
 
 
     return scores, pred_result
+
+
+
+#r

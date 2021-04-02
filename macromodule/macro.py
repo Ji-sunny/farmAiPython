@@ -7,6 +7,10 @@ oracle_db = dbModule.Database()
 def macro(table_names, sel_cols, stnd_cols):
     data = pd.DataFrame()
 
+    # table_name None값 제거
+    for i in range(table_names.count(None)):
+        table_names.pop()
+
     for i, table_name in enumerate(table_names):
         globals()['data{}'.format(i)] = oracle_db.read_data_all(table_name)
         globals()['data{}'.format(i)] = globals()['data{}'.format(i)][sel_cols[i]]
@@ -14,7 +18,8 @@ def macro(table_names, sel_cols, stnd_cols):
     stnd_cols_list = set(itertools.chain(*stnd_cols))
 
     for stnd_col in stnd_cols_list:  # 기준열들["11","33","29"]
-        if stnd_col in data.columns:
+        if not(data.empty) & (stnd_col not in data.columns):
+            stnd_cols_list.append(stnd_col)
             pass
         else:
             # 조인하려는 테이블 종류 받기
