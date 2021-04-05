@@ -25,5 +25,19 @@ def qda(table_name, col_X, col_y):
 
 
 # uses qda model & data for specific scatter visualization
-def visualizeqda():
-    return
+def visualizeqda(table_name, col_X, col_y, pred_X):
+    data = oracle_db.read_data_all(table_name)
+    
+    # oracle_db.create_modeling_table(table_name, modeling_name, visualized_data)
+    # 시각화용 table 입력 필요
+
+    X = pd.DataFrame(data, columns=col_X)
+    X = data_minmax_scaled = minmax_scale(X)
+    y = pd.DataFrame(data, columns=[col_y])
+    y = data_minmax_scaled = minmax_scale(y)
+
+    model = QuadraticDiscriminantAnalysis().fit(X, y)
+    
+    model.predict(pred_X)
+    
+    return model

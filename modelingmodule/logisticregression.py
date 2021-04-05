@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 oracle_db = dbModule.Database()
 
 # ========================= returns model only ===============================
-def logesticregression(table_name, cols_X, col_y):
-    
+def visualizelogisticregression(table_name, cols_X, col_y):
+
     data = oracle_db.read_data_all(table_name)
     X = data[cols_X]
     y = data[col_y]
@@ -22,7 +22,7 @@ def logesticregression(table_name, cols_X, col_y):
     return model
 
 # ========================== original version ============================
-def logesticregression(table_name, cols_X, col_y, pred_cols_X):
+def modeling(table_name, cols_X, col_y, pred_cols_X):
     
     data = oracle_db.read_data_all(table_name)
     X = data[cols_X]
