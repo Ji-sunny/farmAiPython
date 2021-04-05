@@ -79,7 +79,7 @@ def perceptron(table_name, col_X, col_y):
     return model
 
 # uses perceptron model & data for kernel svm visualization
-def visualizeperceptron(data):
+def visualizeperceptron(model):
     
     XX, YY = np.meshgrid(np.linspace(XX_min, XX_max, 1000), np.linspace(YY_min, YY_max, 1000))
 
@@ -120,5 +120,16 @@ def visualizeperceptron(data):
     # for i in idx:
     #     plt.annotate(i, xy=(X[i,0], X[i,1]+0.15), color='white')
     
-    # model만 return 하도록 수정
-    return 
+    vdata = []
+    # vdata --> [
+    #   {   "length" : 2
+    #       "1":   [{ "x": 22.6, "y": 76.2 },
+    #               { "x": 22.8, "y": 76.5 },
+    #               ...],
+    #       "2":   [{ "x": 22.6, "y": 76.2 },
+    #               { "x": 22.8, "y": 76.5 },
+    #               ...]
+    #   }
+    # ]
+
+    return vdata
