@@ -4,7 +4,7 @@ from dbmodule import dbModule
 oracle_db = dbModule.Database()
 
 
-def macro(table_names, sel_cols, stnd_cols):
+def merge_table(table_names, sel_cols, stnd_cols):
     data = pd.DataFrame()
 
     # table_name None값 제거
@@ -16,7 +16,7 @@ def macro(table_names, sel_cols, stnd_cols):
         globals()['data{}'.format(i)] = globals()['data{}'.format(i)][sel_cols[i]]
 
     stnd_cols_list = set(itertools.chain(*stnd_cols))
-
+    
     for stnd_col in stnd_cols_list:  # 기준열들["11","33","29"]
         if not(data.empty) & (stnd_col not in data.columns):
             stnd_cols_list.append(stnd_col)
