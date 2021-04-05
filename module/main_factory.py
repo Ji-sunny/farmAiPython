@@ -19,17 +19,17 @@ def preprocess_table(table_name, files_name):
         # (module 패키지 내에 table_name이름을 가진 모듈 내 table_name 함수 호출)
         data = getattr(getattr(module, table_name), table_name)(data, table_name)
 
+        # files_name 변경
+        data['files_name'] = data['files_name'].map(lambda x: x + '_new')
 
-        # print("data2 : ", data)
         # 전처리한 데이터 새로운 테이블에 집어넣기
-        oracle_db.create_data(data, table_name)
+        new_table_name = table_name + '_new'
+        oracle_db.create_data(data, new_table_name)
 
         # file_storage에 tables_name, files_name 추가 및 fk, cascade 설정
-        le = LabelEncoder()
-        le.fit(data.files_name)
-        files_names = le.classes_
+        new_files_names = files_name + '_new'
 
-        oracle_db.set_storage(files_names, table_name)
+        oracle_db.set_storage(new_files_name, new_table_name)
 
         # 성공 했을 경우, 실패했을 경우 fail
         result = {"result": "success"}
@@ -37,5 +37,4 @@ def preprocess_table(table_name, files_name):
     except (IndexError, SyntaxError, NameError, ZeroDivisionError, ValueError, KeyError, AttributeError,
             FileExistsError, TypeError) as e:
         result = {"result": e}
-        print(e)
         return result
