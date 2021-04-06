@@ -18,7 +18,7 @@ def preprocess():
     return jsonify(result)
 
 
-@app.route('/mergetable', methods=['GET'])
+@app.route('/mergetable', methods=['POST'])
 def mergetable():
     params = request.get_json()
 

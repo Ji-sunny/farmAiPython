@@ -20,14 +20,14 @@ def preprocess_table(table_name, files_name):
         data = getattr(getattr(module, table_name), table_name)(data, table_name)
 
         # files_name 변경
-        data['files_name'] = data['files_name'].map(lambda x: x + '_new')
+        data['files_name'] = files_name + '_new'
 
         # 전처리한 데이터 새로운 테이블에 집어넣기
         new_table_name = table_name + '_new'
         oracle_db.create_data(data, new_table_name)
 
         # file_storage에 tables_name, files_name 추가 및 fk, cascade 설정
-        new_files_names = files_name + '_new'
+        new_files_name = files_name + '_new'
 
         oracle_db.set_storage(new_files_name, new_table_name)
 

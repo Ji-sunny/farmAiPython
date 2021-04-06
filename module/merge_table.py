@@ -13,11 +13,63 @@ def merge_table(table_names, sel_cols, stnd_cols):
             table_names.pop()
 
         # new_table_name 생성
+        name_dict = {'boxair': 'ba',
+                     'box': 'b',
+                     'boxiocrops': 'bi',
+                     'efarmdesign': 'eds',
+                     'efarmdesigndetail': 'edd',
+                     'efarmdevice': 'edv',
+                     'efarmeventsdetail': 'eed',
+                     'efarmeventssynced': 'ees',
+                     'efarmfield': 'ef',
+                     'efarmschedule': 'es',
+                     'farmingbox': 'fbx',
+                     'fielddef': 'fd',
+                     'fielddeflog': 'fdl',
+                     'plantgrowthdaygroup': 'gdg',
+                     'plantgrowthdaygroupday': 'gdgd',
+                     'plantgrowthdb': 'gd',
+                     'plantgrowthdbrep': 'gdr',
+                     'plantgrowthsensor': 'gsr',
+                     'plantgrowthstep': 'gst',
+                     'plantgrowthtimegroup': 'gtg',
+                     'plantgrowthtimegrouptime': 'gtgt',
+                     'plantgrowthunit': 'gu',
+                     'sitefarm3': 'sf3',
+                     'sitefarm4': 'sf4',
+                     'sitefarm5': 'sf5',
+                     'sitefarm6': 'sf6',
+                     'sitefarm7': 'sf7',
+                     'sitefarm8': 'sf8',
+                     'sitefarm9': 'sf9',
+                     'sitefarm10': 'sf10',
+                     'sitefarm11': 'sf11',
+                     'sitefarm12': 'sf12',
+                     'sitefarm13': 'sf13',
+                     'stevent': 'se',
+                     'stfacilitiescode': 'sftc',
+                     'stfarmcode': 'sfmc',
+                     'stlocationcode': 'slc',
+                     'stmember': 'sm',
+                     'stmemberfacilities': 'smf',
+                     'stmemberlocation': 'sml',
+                     'stmembersite': 'sms',
+                     'stnoti': 'sn',
+                     'strtu': 'sr',
+                     'stseason': 'ss',
+                     'stsiteinfo': 'ssi',
+                     'tbcctvimage': 'tci',
+                     'tbcctvpreset': 'tcp'}
+
         new_table_name = []
         for i in table_names:
             new_table_name.append(i.split('_')[0])
 
-        new_table_name = '+'.join(new_table_name) + '_new'
+        new_table_name = []
+        for i in table_names:
+            new_table_name.append(name_dict[i])
+
+        new_table_name = '_'.join(new_table_name) + '_new'
 
         for i, table_name in enumerate(table_names):
             globals()['data{}'.format(i)] = oracle_db.read_data_all(table_name)
@@ -52,7 +104,10 @@ def merge_table(table_names, sel_cols, stnd_cols):
                 if len(table_names) == 0:
                     break
 
-        oracle_db.create_table(data, new_table_name)
+        data['files_name'] = new_table_name
+        data.fillna(0, inplace=True)
+
+        oracle_db.create_data(data, new_table_name)
         oracle_db.set_storage(new_table_name, new_table_name)
 
         result = {"result": "success"}
