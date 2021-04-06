@@ -5,7 +5,11 @@ from flask_cors import CORS
 from module import main_factory, merge_table
 from apscheduler.schedulers.background import BackgroundScheduler
 import joblib
+from modelingmodule import *
+import modelingmodule
+from dbmodule import dbModule
 
+oracle_db = dbModule.Database()
 
 app = Flask(__name__)
 cors = CORS(app)
