@@ -1,6 +1,6 @@
 import itertools
 from dbmodule import dbModule
-
+import pandas as pd
 oracle_db = dbModule.Database()
 
 
