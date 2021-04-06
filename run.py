@@ -3,9 +3,36 @@ import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from module import main_factory, merge_table
+from apscheduler.schedulers.background import BackgroundScheduler
+import joblib
+
 
 app = Flask(__name__)
 cors = CORS(app)
+
+
+def create_model():
+    macros = oracle_db.read_data_all('macro')
+
+    # 학습
+    for i in range(len(macros)):
+        model_name = macros['model_name'][i]
+        table_name = macros['table_name'][i]
+        macro_name = macros['macro_name'][i]
+        cols_X = macros['cols_X'][i]
+        col_y = macros['col_y'][i]
+        cols_X = [x for x in cols_X.split(',')]
+        globals()[macro_name+'_model'] = getattr(getattr(modelingmodule, model_name), 'modeling')(table_name, cols_X, col_y)
+
+    # 모델 저장
+    for i in macros['macro_name']:
+        joblib.dump(macro_name+'_model', 'C:/Users/COM/folder/'+macro_name+'.model')
+    # 이곳 경로 model_visualize 경로와 통일
+
+
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(create_model, 'cron', hours='0')
+sched.start()
 
 
 @app.route('/preprocess', methods=['GET'])
