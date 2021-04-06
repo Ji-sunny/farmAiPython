@@ -10,7 +10,7 @@ def efarmeventssynced(data, table_name):
     data['minute'] = data['act_time'].str[14:16]
     data['second'] = data['act_time'].str[17:19]
 
-    cate=['work_type', '_status', 'device_code', 'crop_code']
+    cate=['work_type', 'status', 'device_code', 'crop_code']
     data = pd.get_dummies(data, columns=cate)
 
     data.drop(['work_type_ZZ','command_group', 'proto', 'regdate', 'act_time']

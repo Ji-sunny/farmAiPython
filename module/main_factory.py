@@ -1,4 +1,3 @@
-from sklearn.preprocessing import LabelEncoder
 from dbmodule import dbModule
 import module
 from module import *
@@ -13,7 +12,6 @@ def preprocess_table(table_name, files_name):
         # data 불러오기
         data = oracle_db.read_data(table_name, files_name)
 
-        data.columns = data.columns.str.lower()
         # print("data1 : ", data)
         # data 전처리
         # (module 패키지 내에 table_name이름을 가진 모듈 내 table_name 함수 호출)
