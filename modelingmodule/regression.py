@@ -15,11 +15,9 @@ def simple_reg(table_name, col_X, col_y, pred_cols_X):
     data = oracle_db.read_data_all(table_name)
     X = data[col_X]
     y = data[col_y]
-
     result = stats.linregress(X,y)
-
     pvalue = result.pvalue
-
+    
     return scores, pred_result, pvalue
 
 
