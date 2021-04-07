@@ -2,9 +2,9 @@ import pandas as pd
 
 def efarmeventssynced(data, table_name):
     data.rename({'id':'efarm_events_synced_id'}, axis=1, inplace=True)
-    data.rename({'_left':"left"}, axis=1, inplace=True)
-    data.rename({'_top':"top"}, axis=1, inplace=True)
-    data.rename({'_status':"status"}, axis=1, inplace=True)
+    # data.rename({'_left':"left"}, axis=1, inplace=True)
+    # data.rename({'_top':"top"}, axis=1, inplace=True)
+    # data.rename({'_status':"status"}, axis=1, inplace=True)
     # _로 시작하는 columns 수정
 
     # data['site_code'] = data['site_code'].str[9:]

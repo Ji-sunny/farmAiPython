@@ -5,7 +5,7 @@ def efarmdesign(data, table_name):
     data["site_code"] = data.site_code.str.replace("SITE_FARM", '')
     data["site_code"] = pd.to_numeric(data["site_code"])
     # site_code dtype을 int64로 수정함
-
+    
     data['reg_date'] = pd.to_datetime(data['reg_date'], unit='s')
     data['year'] = data['reg_date'].dt.year #year
     data['month'] = data['reg_date'].dt.month #month
@@ -17,6 +17,8 @@ def efarmdesign(data, table_name):
     data.drop(["title"], axis=1, inplace=True) 
     data.drop(["reg_date"], axis=1, inplace=True) 
     
+    data.rename(columns={"id" : "efarm_design_id"}, inplace=True)
+
     data.fillna(0, inplace=True)
     
     return data

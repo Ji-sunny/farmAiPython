@@ -14,7 +14,7 @@ def efarmdevice(data, table_name):
             return 0
     
     # data['site_code'] = data.site_code.str.split('FARM').str[1]
-    data["site_code"] = data.site_code.str.replace("SITE_FARM", '')
+    data["site_code"] = data.site_code.str.replace("SITE_FARM", "")
     data["site_code"] = pd.to_numeric(data["site_code"])
     # site_code dtype str --> numpy.int64로 수정
 
@@ -30,6 +30,15 @@ def efarmdevice(data, table_name):
 
     data['test2']  = data['test2'].map(lambda x : origin_(x))  #origin 열
     data.rename(columns={"test2" : "origin"}, inplace=True)
+
+    data.rename(columns={"id" : "efarm_device_id"}, inplace=True)
+    # id는 고유 efarm_device_id로 변경.
+
+    # data.rename(columns={"_width" : "width"}, inplace=True)
+    # data.rename(columns={"_height" : "height"}, inplace=True)
+    # data.rename(columns={"_width_all" : "width_all"}, inplace=True)
+    # data.rename(columns={"_height_all" : "height_all"}, inplace=True)
+    # # _로 시작하는 columns _ 삭제.
     category=['type']
     data = pd.get_dummies(data, columns=category, prefix_sep='', prefix='')
     

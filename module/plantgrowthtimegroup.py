@@ -9,12 +9,12 @@ def plantgrowthtimegroup(data, table_name):
     data = pd.get_dummies(data, columns=cate)
 
     data.drop(['site_code', 'content'], axis=1, inplace=True)
-
-    data.rename({'GROWTH_UNIT_ID_14':'14_참송이생장DB', 'GROWTH_UNIT_ID_19':'19_딸기생장DB',
-                 'GROWTH_UNIT_ID_23':'23_파프리카생장DB', 'GROWTH_UNIT_ID_24':'24_토마토생장DB'},
-                axis=1, inplace=True)
-    
     data.fillna(0, inplace=True)
+
+    data.rename(columns={"growth_unit_id_14" : "참송이생장DB_14"}, inplace=True)
+    data.rename(columns={"growth_unit_id_19" : "딸기생장DB_19"}, inplace=True)
+    data.rename(columns={"growth_unit_id_23" : "파프리카생장DB_23"}, inplace=True)
+    data.rename(columns={"growth_unit_id_24" : "토마토생장DB_24"}, inplace=True)
 
     data.rename(columns={"id" : "plant_growth_time_group_id"}, inplace=True)
 

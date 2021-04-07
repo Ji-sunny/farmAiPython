@@ -123,7 +123,7 @@ def farmingbox(data, table_name):
     def status_spliter(data):
         return data.split("_")
 
-    data.rename({0:"id"}, axis=1, inplace=True)
+    data.rename({0:"farmingbox_id"}, axis=1, inplace=True)
     data.rename({1:"status"}, axis=1, inplace=True)
     data.rename({2:"time"}, axis=1, inplace=True)
     data.rename({3:"empty"}, axis=1, inplace=True)
