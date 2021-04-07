@@ -18,17 +18,18 @@ def modeling(table_name, cols_X, col_y):
     model = RandomForestClassifier(n_estimators=10, random_state=10)
     model.fit(train_X, train_y)
     score = model.score(test_X, test_y)
-
-
+    y_pred = rf_model.predict(test_X)
+    report = metrics.classification_report(y_test, y_pred, output_dict=True)
+    report = pd.DataFrame(report).transpose()
     return model, score
 
 
 
 # ========================== original version ============================
-def visualize(model, cols_X, col_y,  pred_cols_X =None):
-    df = pd.DataFrame(cols_X)
+def visualize(model,  pred_cols_X =None):
+
     model.feature_importances_   
-    result = pd.DataFrame(data = np.c_[df.columns,
+    result = pd.DataFrame(data = np.c_[model.  ,
                                    model.feature_importances_],
                       columns=['feature', 'importance'])
     result.sort_values(by='importance', ascending=False, inplace=True)

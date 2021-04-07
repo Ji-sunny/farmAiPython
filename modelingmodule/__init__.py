@@ -1,12 +1,14 @@
 __all__ = [
-    'correlation',
     'regression',
-    'correlation',
+    'corr_pearson',
+    'corr_spearman',
     'decisiontree',
     'describe',
     'feature_importance',
     'logisticregression',
     'validation_curve',
-    'rfe'
+    'rfe',
+    'validation_curve',
+    'vif'
 
 ]
