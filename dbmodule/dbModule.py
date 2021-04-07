@@ -4,6 +4,7 @@ from dbmodule import conn
 
 conn = conn.conn()
 
+
 class Database():
     def __init__(self):
         self.pd = pd
@@ -33,8 +34,12 @@ class Database():
         macro_data = pd.read_sql(sql, conn)
         return macro_data
 
-    def add_macro(self, macro_data):
-        macro_data.to_sql('macro', conn, if_exists='append', index=False, dtype=types.VARCHAR(50))
+    def add_score(self, macro_name, score, report):
+        print(1)
+        data = pd.DataFrame({'macro_name':macro_name, 'score':score, 'report':report}, index=[0])
+        print(data)
+        type_dict = {'macro_name':types.VARCHAR(20), 'score':types.FLOAT, 'report':types.CLOB}
+        data.to_sql('scores', conn, if_exists='append', index=False, dtype=type_dict)
 
     def visualize(self, table_name, model_name, visualized_data):
         visualized_data.to_sql(table_name + '_' + model_name, conn, if_exists='append', index=False)
@@ -46,3 +51,8 @@ class Database():
         names.to_sql('file_storage', conn, if_exists='append', index=False)
 
         conn.execute("alter table {} add foreign key (files_name) references file_storage(files_name) on delete cascade".format(new_table_name))
+
+    def read_sql(self, sql):
+        data = pd.read_sql(sql, conn)
+
+        return data

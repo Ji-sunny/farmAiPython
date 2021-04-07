@@ -18,7 +18,7 @@ def modeling(table_name, cols_X, col_y):
     train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.3)
 
     # 모델 학습 
-    model = LogisticRegression(max_iter=int(len(X)*0.8)).fit(train_X,train_y)
+    model = LogisticRegression(max_iter=10000).fit(train_X,train_y)
     score = model.score(test_X, test_y)
     y_pred = model.predict(test_X)
     report = metrics.classification_report(test_y, y_pred, output_dict=True)
