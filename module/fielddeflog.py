@@ -13,6 +13,8 @@ def fielddeflog(data, table_name):
     #원핫 인코딩후 열 삭제
     data.drop(["ip"], axis=1, inplace=True) 
     
+    data.rename(columns={"id" : "field_def_log_id"}, inplace=True)
+
     data.fillna(0, inplace=True)
     
     return data

@@ -18,5 +18,8 @@ def fielddef(data, table_name):
     #원핫 인코딩후 열 삭제
     data.drop(["tag_dis"], axis=1, inplace=True) 
     
+    data.rename(columns={"id" : "field_def_id"}, inplace=True)
+    # id --> field_def_id 고유 식별자로 변경
+    
     data.fillna(0, inplace=True)
     return data

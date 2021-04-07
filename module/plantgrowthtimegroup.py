@@ -16,4 +16,6 @@ def plantgrowthtimegroup(data, table_name):
     
     data.fillna(0, inplace=True)
 
+    data.rename(columns={"id" : "plant_growth_time_group_id"}, inplace=True)
+
     return data

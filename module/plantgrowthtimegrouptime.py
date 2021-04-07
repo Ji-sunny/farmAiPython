@@ -9,9 +9,11 @@ def plantgrowthtimegrouptime(data, table_name):
 
     data.drop('site_code', axis=1, inplace=True)
 
-    data.rename({'14':'14_참송이생장DB', '19':'19_딸기생장DB',
-                 '23':'23_파프리카생장DB', '24':'24_토마토생장DB'},
+    data.rename({'14':'참송이생장DB_14', '19':'딸기생장DB_19',
+                 '23':'파프리카생장DB_23', '24':'토마토생장DB_24'},
                 axis=1, inplace=True)
     
     data.fillna(0, inplace=True)
+
+    data.rename(columns={"id" : "plant_growth_time_grouptime_id"}, inplace=True)
     return data

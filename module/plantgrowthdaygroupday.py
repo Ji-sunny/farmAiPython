@@ -8,6 +8,8 @@ def plantgrowthdaygroupday(data, table_name):
     data = pd.get_dummies(data, columns=cate)
 
     data.drop(['site_code'], axis=1, inplace=True)
-    
+
+    data.rename(columns={"id" : "plant_growth_day_group_day_id"}, inplace=True)
+
     data.fillna(0, inplace=True)
     return data
