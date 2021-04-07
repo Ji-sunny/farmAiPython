@@ -4,6 +4,7 @@ from dbmodule import conn
 
 conn = conn.conn()
 
+
 class Database():
     def __init__(self):
         self.pd = pd
@@ -33,8 +34,9 @@ class Database():
         macro_data = pd.read_sql(sql, conn)
         return macro_data
 
-    def add_macro(self, macro_data):
-        macro_data.to_sql('macro', conn, if_exists='append', index=False, dtype=types.VARCHAR(50))
+    def add_score(self, macro_name, score):
+        data = pd.DataFrame({'macro_name':macro_name, 'score':score}, index=[0])
+        data.to_sql('scores', conn, if_exists='append', index=False, dtype=types.VARCHAR(50))
 
     def visualize(self, table_name, model_name, visualized_data):
         visualized_data.to_sql(table_name + '_' + model_name, conn, if_exists='append', index=False)

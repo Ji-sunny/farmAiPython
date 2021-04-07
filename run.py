@@ -1,5 +1,4 @@
 import json
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from module import main_factory, merge_table
@@ -7,7 +6,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import joblib
 from modelingmodule import *
 import modelingmodule
+from modelingmodule.visualize_model import model_visualize
 from dbmodule import dbModule
+
 
 oracle_db = dbModule.Database()
 
@@ -38,22 +39,6 @@ def mergetable():
     return jsonify(result)
 
 
-
-@app.route('/macro', methods=['GET'])
-def macro():
-    params = request.get_json()
-
-    table_name = params['table_name']
-    model_name = params['model_name']
-    macro_name = params['macro_name']
-    cols_X = params['cols_X']
-    col_y = params['col_y']
-
-    result = macro.create_macro(table_name, model_name, macro_name, cols_X, col_y)
-
-    return jsonify(result)
-
-
 @app.route('/visualize', methods=['POST'])
 def visualize():
     params = request.get_json()
@@ -61,7 +46,7 @@ def visualize():
     macro_name = params['macro_name']
     pred_cols_X = params['pred_cols_X']
 
-    visualized_data, score_data = macro.model_visualize(macro_name, pred_cols_X)
+    visualized_data, score_data = model_visualize(macro_name, pred_cols_X)
 
     visualized_data = visualized_data.to_json()
 
