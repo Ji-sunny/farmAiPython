@@ -21,7 +21,7 @@ def modeling(table_name, cols_X, col_y):
     y_pred = rf_model.predict(test_X)
     report = metrics.classification_report(y_test, y_pred, output_dict=True)
     report = pd.DataFrame(report).transpose()
-    return model, score
+    return model, score, report
 
 
 
