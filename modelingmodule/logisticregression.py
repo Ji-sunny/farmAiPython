@@ -18,8 +18,8 @@ def modeling(table_name, cols_X, col_y):
 
     # 모델 학습 
     model = LogisticRegression(max_iter=5000).fit(train_X,train_y)
-
-    return model
+    score = model.score(test_X, test_y)
+    return model, score
 
 # ========================== original version ============================
 

@@ -33,5 +33,5 @@ def visualize(model, cols_X, col_y,  pred_cols_X =None):
                       columns=['feature', 'importance'])
     result.sort_values(by='importance', ascending=False, inplace=True)
     result.reset_index(drop=True, inplace=True)
-    result
+    
     return result

@@ -1,6 +1,6 @@
 __all__ = [
     'correlation',
-    'linear_regression',
+    'regression',
     'correlation',
     'decisiontree',
     'describe',

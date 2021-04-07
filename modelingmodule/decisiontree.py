@@ -23,8 +23,8 @@ def modeling(table_name, cols_X, col_y):
     model = DecisionTreeClassifier(criterion='entropy',
                                      max_depth=1, random_state=0)
     model.fit(train_X, train_y)
-    scores = model.score(test_X, test_y)
-    return model, scores
+    score = model.score(test_X, test_y)
+    return model, score
 
 
 def visualize(model, cols_X=None, col_y=None,  pred_cols_X =None):  
