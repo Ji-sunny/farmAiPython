@@ -2,7 +2,8 @@ import itertools
 from dbmodule import dbModule
 import pandas as pd
 oracle_db = dbModule.Database()
-
+import ast
+import json
 
 def merge_table(table_names, sel_cols, stnd_cols):
     try:
@@ -11,6 +12,21 @@ def merge_table(table_names, sel_cols, stnd_cols):
         # table_name None값 제거
         for i in range(table_names.count(None)):
             table_names.pop()
+        
+        # 소문자로 변경
+        for i, cols in enumerate(sel_cols):
+            arr = []
+            for j in cols:
+                arr.append(j.lower())
+            sel_cols[i] = arr
+        for i, cols in enumerate(stnd_cols):
+            arr = []
+            for j in cols:
+                arr.append(j.lower())
+            stnd_cols[i] = arr
+        for i, name in enumerate(table_names):
+            table_names[i] = name.lower()
+
 
         # new_table_name 생성
         name_dict = {'boxair': 'ba',
@@ -74,7 +90,6 @@ def merge_table(table_names, sel_cols, stnd_cols):
         for i, table_name in enumerate(table_names):
             globals()['data{}'.format(i)] = oracle_db.read_data_all(table_name)
             globals()['data{}'.format(i)] = globals()['data{}'.format(i)][sel_cols[i]]
-
         stnd_cols_list = set(itertools.chain(*stnd_cols))
 
         for stnd_col in stnd_cols_list:  # 기준열들["11","33","29"]

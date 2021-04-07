@@ -38,6 +38,7 @@ def mergetable():
     return jsonify(result)
 
 
+
 @app.route('/macro', methods=['GET'])
 def macro():
     params = request.get_json()
@@ -77,4 +78,4 @@ def test():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="8082")
+    app.run(port="8082")
