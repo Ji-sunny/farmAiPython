@@ -61,13 +61,13 @@ def merge_table(table_names, sel_cols, stnd_cols):
                      'tbcctvimage': 'tci',
                      'tbcctvpreset': 'tcp'}
 
-        new_table_name = []
-        for i in table_names:
-            new_table_name.append(i.split('_')[0])
-
         new_table_names = []
-        for i in new_table_name:
-            new_table_names.append(name_dict[i])
+        for i in table_names:
+            new_table_names.append(i.split('_')[0])
+
+        new_table_name = []
+        for i in new_table_names:
+            new_table_name.append(name_dict[i])
 
         new_table_name = '_'.join(new_table_name) + '_new'
 
