@@ -37,7 +37,9 @@ class Database():
     def add_score(self, macro_name, score, report):
         print(1)
         data = pd.DataFrame({'macro_name':macro_name, 'score':score, 'report':report}, index=[0])
-        data.to_sql('scores', conn, if_exists='append', index=False, dtype=types.VARCHAR(50))
+        print(data)
+        type_dict = {'macro_name':types.VARCHAR(20), 'score':types.FLOAT, 'report':types.CLOB}
+        data.to_sql('scores', conn, if_exists='append', index=False, dtype=type_dict)
 
     def visualize(self, table_name, model_name, visualized_data):
         visualized_data.to_sql(table_name + '_' + model_name, conn, if_exists='append', index=False)

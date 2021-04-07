@@ -5,6 +5,7 @@ from module import main_factory, merge_table
 from apscheduler.schedulers.background import BackgroundScheduler
 import joblib
 from modelingmodule import *
+from modelingmodule import modeling
 import modelingmodule
 from modelingmodule.visualize_model import model_visualize
 from dbmodule import dbModule
@@ -37,6 +38,16 @@ def mergetable():
     result = merge_table.merge_table(table_names, sel_cols, stnd_cols)
 
     return jsonify(result)
+
+# 로컬에 모델 저장 테스트용, 추후 스케쥴러로 뺄 것
+@app.route('/run_model', methods=['POST'])
+def run_model():
+
+    modeling.create_model()
+
+    result = "success"
+
+    return result
 
 
 @app.route('/visualize', methods=['POST'])
