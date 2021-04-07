@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def efarmdesigndetail(data, table_name):
     # 경로 필요
@@ -12,11 +13,18 @@ def efarmdesigndetail(data, table_name):
 #    data["date"] = folder_names[0].split('_')[1]  # data열 추가
     #
 
-    data['site_code'] = data.site_code.str.split('FARM').str[1]
+    data["site_code"] = data.site_code.str.replace("SITE_FARM", '')
+    data["site_code"] = pd.to_numeric(data["site_code"])
+    # site_code dtype str --> numpy.int64로 수정
+
     #날짜 0과 NaN값 삭제
     change_ = {0.0 : np.NaN }
     data = data.replace({'work_date': change_})
     data.dropna(subset=['work_date'],inplace=True)
+    category=['object_type']
+    data = pd.get_dummies(data, columns=category, prefix_sep='', prefix='')
+    # column 순서 수정
+
     data['work_date'] = pd.to_datetime(data['work_date'], unit='s')
     data['year'] = data['work_date'].dt.year #year
     data['month'] = data['work_date'].dt.month #month
@@ -24,8 +32,6 @@ def efarmdesigndetail(data, table_name):
     data['hour'] = data['work_date'].dt.hour #hour
     data['minute'] = data['work_date'].dt.minute #min
     data['second'] = data['work_date'].dt.second #sec
-    category=['object_type']
-    data = pd.get_dummies(data, columns=category, prefix_sep='', prefix='')
     data.drop(["work_date"], axis=1, inplace=True) 
     
     data.fillna(0, inplace=True)

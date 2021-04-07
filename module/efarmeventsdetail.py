@@ -2,7 +2,10 @@ import pandas as pd
 
 def efarmeventsdetail(data, table_name):
     
-    data['site_code'] = data['site_code'].str[9:]
+    # data['site_code'] = data.site_code.str.split('FARM').str[1]
+    data["site_code"] = data.site_code.str.replace("SITE_FARM", '')
+    data["site_code"] = pd.to_numeric(data["site_code"])
+    # site_code dtype str --> numpy.int64로 수정
     
     data.drop(["crop_id"], axis=1, inplace=True)
     category=['events_type']
@@ -11,4 +14,4 @@ def efarmeventsdetail(data, table_name):
     data = pd.get_dummies(data, columns=category, prefix_sep='', prefix='')
     
     data.fillna(0, inplace=True)
-    return data    
+    return data

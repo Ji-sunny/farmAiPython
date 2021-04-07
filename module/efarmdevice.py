@@ -13,10 +13,21 @@ def efarmdevice(data, table_name):
         else:
             return 0
     
-    data['site_code'] = data.site_code.str.split('FARM').str[1]
+    # data['site_code'] = data.site_code.str.split('FARM').str[1]
+    data["site_code"] = data.site_code.str.replace("SITE_FARM", '')
+    data["site_code"] = pd.to_numeric(data["site_code"])
+    # site_code dtype str --> numpy.int64로 수정
+
     data['device_code'] = data['device_code'].str.replace('D', '')
+    data["device_code"] = pd.to_numeric(data["device_code"])
+    # device_code dtype str --> numpy.int64로 수정
+
     data['test2']  = data['name'].map(lambda x : korean_(x)[0])
     data['name']=data.name.str.extract('(\d+)')
+
+    data["name"] = pd.to_numeric(data["name"])
+    # name dtype str --> numpy.int64로 수정
+
     data['test2']  = data['test2'].map(lambda x : origin_(x))  #origin 열
     data.rename(columns={"test2" : "origin"}, inplace=True)
     category=['type']

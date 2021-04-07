@@ -10,5 +10,7 @@ def plantgrowthdaygroup(data, table_name):
 
     data.drop(['site_code', 'content'], axis=1, inplace=True)
     
+    data.rename(columns={"id" : "plant_growth_day_group_id"}, inplace=True)
+
     data.fillna(0, inplace=True)
     return data

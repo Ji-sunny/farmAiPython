@@ -13,12 +13,23 @@ def plantgrowthunit(data, table_name):
 
     data['reg_date'] = data['reg_date'].map(time_ch)
 
-    data['reg_year'] = data['reg_date'].str[0:4]
-    data['reg_month'] = data['reg_date'].str[4:6]
-    data['reg_day'] = data['reg_date'].str[6:8]
-    data['reg_hour'] = data['reg_date'].str[8:10]
-    data['reg_minute'] = data['reg_date'].str[10:12]
-    data['reg_second'] = data['reg_date'].str[12:14]
+    # data['reg_year'] = data['reg_date'].str[0:4]
+    # data['reg_month'] = data['reg_date'].str[4:6]
+    # data['reg_day'] = data['reg_date'].str[6:8]
+    # data['reg_hour'] = data['reg_date'].str[8:10]
+    # data['reg_minute'] = data['reg_date'].str[10:12]
+    # data['reg_second'] = data['reg_date'].str[12:14]
+
+    data["reg_date"] = pd.to_datetime(data["reg_date"])
+
+    data["reg_year"] = data["reg_date"].dt.year
+    data["reg_month"] = data["reg_date"].dt.month
+    data["reg_day"] = data["reg_date"].dt.day
+    data["reg_hour"] = data["reg_date"].dt.hour
+    data["reg_minute"] = data["reg_date"].dt.minute
+    data["reg_second"] = data["reg_date"].dt.second
+
+    data.rename(columns={"id" : "plant_growth_unit_id"}, inplace=True)
 
     data.drop(['reg_date', 'site_code'], axis=1, inplace=True)
     

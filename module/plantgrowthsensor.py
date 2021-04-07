@@ -13,6 +13,8 @@ def plantgrowthsensor(data, table_name):
     cate = ['growth_unit_id']
     data = pd.get_dummies(data, columns=cate)
 
+    data.rename(columns={"id" : "plant_growth_sensor_id"}, inplace=True)
+
     data.drop(['site_code', 'thread'], axis=1, inplace=True)
 
     return data

@@ -13,23 +13,22 @@ def plantgrowthdb(data, table_name):
     time_ch = lambda x : time.strftime("%Y%m%d%H%M%S", time.localtime(int(x)))
 
     data['reg_date'] = data['reg_date'].map(time_ch)
+    data["reg_date"] = pd.to_datetime(data["reg_date"])
+    data["reg_year"] = data["reg_date"].dt.year
+    data["reg_month"] = data["reg_date"].dt.month
+    data["reg_day"] = data["reg_date"].dt.day
+    data["reg_hour"] = data["reg_date"].dt.hour
+    data["reg_minute"] = data["reg_date"].dt.minute
+    data["reg_second"] = data["reg_date"].dt.second
 
-    data['reg_year'] = data['reg_date'].str[0:4]
-    data['reg_month'] = data['reg_date'].str[4:6]
-    data['reg_day'] = data['reg_date'].str[6:8]
-    data['reg_hour'] = data['reg_date'].str[8:10]
-    data['reg_minute'] = data['reg_date'].str[10:12]
-    data['reg_second'] = data['reg_date'].str[12:14]    
-
-    data['act_time'] = data['act_time'].map(time_ch)
-
-    data['act_year'] = data['act_time'].str[0:4]
-    data['act_month'] = data['act_time'].str[4:6]
-    data['act_day'] = data['act_time'].str[6:8]
-    data['act_hour'] = data['act_time'].str[8:10]
-    data['act_minute'] = data['act_time'].str[10:12]
-    data['act_second'] = data['act_time'].str[12:14]    
-
+    data["act_time"] = data["act_time"].map(time_ch)
+    data["act_time"] = pd.to_datetime(data["act_time"])
+    data["act_year"] = data["act_time"].dt.year
+    data["act_month"] = data["act_time"].dt.month
+    data["act_day"] = data["act_time"].dt.day
+    data["act_hour"] = data["act_time"].dt.hour
+    data["act_minute"] = data["act_time"].dt.minute
+    data["act_second"] = data["act_time"].dt.second
 
     cate = ['growth_unit_id']
     data = pd.get_dummies(data, columns=cate)
@@ -41,6 +40,7 @@ def plantgrowthdb(data, table_name):
         data.drop(['normal_'+str(i),'normal_plus_'+str(i),'normal_minus_'+str(i)], 
                   axis=1, inplace=True)
         
-    data.fillna(0, inplace=True)
+    data.rename(columns={"id" : "plant_growth_db_id"}, inplace=True)
 
+    data.fillna(0, inplace=True)
     return data
