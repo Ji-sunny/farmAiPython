@@ -34,8 +34,9 @@ class Database():
         macro_data = pd.read_sql(sql, conn)
         return macro_data
 
-    def add_score(self, macro_name, score):
-        data = pd.DataFrame({'macro_name':macro_name, 'score':score}, index=[0])
+    def add_score(self, macro_name, score, report):
+        print(1)
+        data = pd.DataFrame({'macro_name':macro_name, 'score':score, 'report':report}, index=[0])
         data.to_sql('scores', conn, if_exists='append', index=False, dtype=types.VARCHAR(50))
 
     def visualize(self, table_name, model_name, visualized_data):
@@ -48,3 +49,8 @@ class Database():
         names.to_sql('file_storage', conn, if_exists='append', index=False)
 
         conn.execute("alter table {} add foreign key (files_name) references file_storage(files_name) on delete cascade".format(new_table_name))
+
+    def read_sql(self, sql):
+        data = pd.read_sql(sql, conn)
+
+        return data
