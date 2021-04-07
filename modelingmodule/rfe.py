@@ -3,7 +3,8 @@ from dbmodule import dbModule
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 from sklearn.model_selection import train_test_split
-
+from sklearn.metrics import classification_report
+from sklearn import metrics
 oracle_db = dbModule.Database()
 
 
@@ -19,14 +20,10 @@ def modeling(table_name, cols_X, col_y):
     model = RFE(rf_model,  n_features_to_select=int(len(X.columns)/2))
     model.fit(train_X, train_y)
     score = model.score(test_X, test_y)
-    y_pred = rf_model.predict(test_X)
-    report = metrics.classification_report(y_test, y_pred, output_dict=True)
+    y_pred = model.predict(test_X)
+    report = metrics.classification_report(test_y, y_pred, output_dict=True)
     report = pd.DataFrame(report).transpose()
     return model, score, report
-
-
-    return model, score
-
 
 
 # ========================== original version ============================

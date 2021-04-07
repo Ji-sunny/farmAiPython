@@ -10,7 +10,8 @@ from sklearn.tree import export_graphviz
 import pydot 
 from IPython.core.display import Image
 import matplotlib.pyplot as plt
-
+from sklearn.metrics import classification_report
+from sklearn import metrics
 
 oracle_db = dbModule.Database()
 
@@ -24,8 +25,8 @@ def modeling(table_name, cols_X, col_y):
                                      max_depth=1, random_state=0)
     model.fit(train_X, train_y)
     score = model.score(test_X, test_y)
-    y_pred = rf_model.predict(test_X)
-    report = metrics.classification_report(y_test, y_pred, output_dict=True)
+    y_pred = model.predict(test_X)
+    report = metrics.classification_report(test_y, y_pred, output_dict=True)
     report = pd.DataFrame(report).transpose()
     return model, score, report
 

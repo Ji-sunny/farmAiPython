@@ -26,7 +26,7 @@ def modeling(table_name, col_X, col_y):
     score = None
     return model, score
 
-def visualize(model, cols_X, col_y,  pred_cols_X =None):
+def visualize(model, pred_cols_X =None):
     a = str(model.params).split('\n')
     coef = [float(a[i][-8:]) for i in range(len(a)-1)]
     b = str(model.bse).split('\n')

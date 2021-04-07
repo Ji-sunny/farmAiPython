@@ -4,7 +4,8 @@ from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
-
+from sklearn.metrics import classification_report
+from sklearn import metrics
 oracle_db = dbModule.Database()
 
 # ========================= returns model only ===============================
@@ -19,8 +20,8 @@ def modeling(table_name, cols_X, col_y):
     # 모델 학습 
     model = LogisticRegression(max_iter=5000).fit(train_X,train_y)
     score = model.score(test_X, test_y)
-    y_pred = rf_model.predict(test_X)
-    report = metrics.classification_report(y_test, y_pred, output_dict=True)
+    y_pred = model.predict(test_X)
+    report = metrics.classification_report(test_y, y_pred, output_dict=True)
     report = pd.DataFrame(report).transpose()
     return model, score, report
 
