@@ -8,7 +8,7 @@ import math
 from dbmodule import dbModule
 import statsmodels.formula.api as smf
 from pandas import DataFrame
-from pandas as pd 
+import pandas as pd 
 
 oracle_db = dbModule.Database()
 
