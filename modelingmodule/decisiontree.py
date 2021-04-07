@@ -10,25 +10,36 @@ from sklearn.tree import export_graphviz
 import pydot 
 from IPython.core.display import Image
 import matplotlib.pyplot as plt
-
+from sklearn.metrics import classification_report
+from sklearn import metrics
 
 oracle_db = dbModule.Database()
 
-def decisiontree(table_name, cols_X, col_y):
+def modeling(table_name, cols_X, col_y):
     data = oracle_db.read_data_all(table_name)
     X = data[cols_X]
     y = data[col_y]
     feature_names = cols_X
     train_X, test_X , train_y, test_y = train_test_split(X, y, test_size=0.3)
-    dt_model = DecisionTreeClassifier(criterion='entropy',
+    model = DecisionTreeClassifier(criterion='entropy',
                                      max_depth=1, random_state=0)
-    dt_model.fit(train_X, train_y)
-    scores = dt_model.score(test_X, test_y)
-    
+    model.fit(train_X, train_y)
+    score = model.score(test_X, test_y)
+    y_pred = model.predict(test_X)
+    report = metrics.classification_report(test_y, y_pred, output_dict=True)
+    report = pd.DataFrame(report).transpose()
+    return model, score, report
+
+
+
+
+def visualize(model, cols_X=None, col_y=None,  pred_cols_X =None):  
+
+    feature_names = cols_X
     dot_buf = io.StringIO()
-    export_graphviz(dt_model, out_file=dot_buf, feature_names = feature_names)
-#     graph = pydot.graph_from_dot_data(dot_buf.getvalue())[0]
-#     image = graph.create_png()
+    export_graphviz(model, out_file=dot_buf, feature_names = feature_names)
+    graph = pydot.graph_from_dot_data(dot_buf.getvalue())[0]
+    image = graph.create_png()
    
         
-    return scores,dot_buf.getvalue()
+    return Image(image)
