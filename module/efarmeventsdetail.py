@@ -9,9 +9,13 @@ def efarmeventsdetail(data, table_name):
     
     data.drop(["crop_id"], axis=1, inplace=True)
     category=['events_type']
-    data.rename(columns = {'id': 'efarm_events_detail_id', '_left':'_left_events_detail', 
-                           '_top':'_top_left_events_detail'}, inplace=True)
+    data.rename(columns = {'id': 'efarm_events_detail_id', 'left':'left_events_detail', 
+                           'top':'top_left_events_detail'}, inplace=True)
     data = pd.get_dummies(data, columns=category, prefix_sep='', prefix='')
+    
+    # data.rename(columns={"_left_events_detail" : "left_events_detail"}, inplace=True)
+    # data.rename(columns={"_top_left_events_detail" : "top_left_events_detail"}, inplace=True)
+    # _* columns edit
     
     data.fillna(0, inplace=True)
     return data

@@ -32,7 +32,16 @@ def efarmdesigndetail(data, table_name):
     data['hour'] = data['work_date'].dt.hour #hour
     data['minute'] = data['work_date'].dt.minute #min
     data['second'] = data['work_date'].dt.second #sec
-    data.drop(["work_date"], axis=1, inplace=True) 
+    data.drop(["work_date"], axis=1, inplace=True)
+
+    data.rename(columns={"id" : "efarm_design_detail_id"}, inplace=True)
+    # data.rename(columns={"_area" : "area"}, inplace=True)
+    # data.rename(columns={"_left" : "left"}, inplace=True)
+    # data.rename(columns={"_top" : "top"}, inplace=True)
+    # data.rename(columns={"_width" : "width"}, inplace=True)
+    # data.rename(columns={"_height" : "height"}, inplace=True)
+    # data.rename(columns={"_real_left" : "real_left"}, inplace=True)
+    # data.rename(columns={"_real_top" : "real_top"}, inplace=True)
     
     data.fillna(0, inplace=True)
     return data
