@@ -30,8 +30,8 @@ def modeling(table_name, cols_X, col_y):
 def visualize(model,  pred_cols_X =None):
 
     model.feature_importances_   
-    result = pd.DataFrame(data = np.c_[model.  ,
-                                   model.feature_importances_],
+    result = pd.DataFrame(data = np.c_[model.
+                                 model.feature_importances_],
                       columns=['feature', 'importance'])
     result.sort_values(by='importance', ascending=False, inplace=True)
     result.reset_index(drop=True, inplace=True)
