@@ -21,14 +21,21 @@ def preprocess_table(table_name, files_name):
         # files_name 변경
         data['files_name'] = files_name + '_new'
 
-        # 전처리한 데이터 새로운 테이블에 집어넣기
+        # file_storage에 tables_name, files_name 추가
         new_table_name = table_name + '_new'
-        oracle_db.create_data(data, new_table_name)
-
-        # file_storage에 tables_name, files_name 추가 및 fk, cascade 설정
         new_files_name = files_name + '_new'
 
         oracle_db.set_storage(new_files_name, new_table_name)
+
+        # 테이블이 생성된 적 있는지 체크
+        table_check = oracle_db.check_table(new_table_name)
+
+        # 전처리한 데이터 새로운 테이블에 집어넣기
+        oracle_db.create_data(data, new_table_name)
+
+        # fk, cascade 설정
+        if table_check==0:
+            oracle_db.set_fk(new_table_name)
 
         # 성공 했을 경우, 실패했을 경우 fail
         result = {"result": "success"}

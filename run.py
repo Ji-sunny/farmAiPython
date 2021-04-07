@@ -53,7 +53,7 @@ def run_model():
 @app.route('/visualize', methods=['POST'])
 def visualize():
     params = request.get_json()
-
+    print(params)
     macro_name = params['macro_name']
     pred_cols_X = params['pred_cols_X']
 

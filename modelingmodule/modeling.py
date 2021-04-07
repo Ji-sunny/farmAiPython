@@ -16,15 +16,16 @@ def create_model():
         model_name = macros['model_name'][i].lower()
         table_name = macros['table_name'][i].lower()
         macro_name = macros['macro_name'][i].lower()
-        cols_X = macros['cols_X'][i]
+        cols_X = macros['cols_x'][i]
         col_y = macros['col_y'][i].lower()
         cols_X = [x.lower() for x in cols_X.split(',')]
         model, score, report = getattr(getattr(modelingmodule, model_name), 'modeling')(table_name, cols_X, col_y)
 
     # 모델 저장
     for i in macros['macro_name']:
+        print(i)
         joblib.dump(model, 'C:/Users/COM/folder/'+macro_name+'.model')
-
+    print(3)
     # report json 형태로 변환
     report = report.to_json()
 
