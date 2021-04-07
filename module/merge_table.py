@@ -104,6 +104,7 @@ def merge_table(table_names, sel_cols, stnd_cols):
                 if len(table_names) == 0:
                     break
 
+
         data['files_name'] = new_table_name
         data.fillna(0, inplace=True)
 
@@ -111,6 +112,7 @@ def merge_table(table_names, sel_cols, stnd_cols):
         oracle_db.set_storage(new_table_name, new_table_name)
 
         result = {"result": "success"}
+
         return result
     except (IndexError, SyntaxError, NameError, ZeroDivisionError, ValueError, KeyError, AttributeError,
             FileExistsError, TypeError) as e:
