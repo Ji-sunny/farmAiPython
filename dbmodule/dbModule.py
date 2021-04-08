@@ -35,14 +35,10 @@ class Database():
         return macro_data
 
     def add_score(self, macro_name, score, report):
-        print(1)
         data = pd.DataFrame({'macro_name':macro_name, 'score':score, 'report':report}, index=[0])
-        print(data)
+
         type_dict = {'macro_name':types.VARCHAR(20), 'score':types.FLOAT, 'report':types.CLOB}
         data.to_sql('scores', conn, if_exists='append', index=False, dtype=type_dict)
-
-    def visualize(self, table_name, model_name, visualized_data):
-        visualized_data.to_sql(table_name + '_' + model_name, conn, if_exists='append', index=False)
 
     def set_storage(self, new_files_name, new_table_name):
 
@@ -50,7 +46,15 @@ class Database():
 
         names.to_sql('file_storage', conn, if_exists='append', index=False)
 
-        conn.execute("alter table {} add foreign key (files_name) references file_storage(files_name) on delete cascade".format(new_table_name))
+    def set_fk(self, new_table_name):
+        sql="alter table {} add foreign key (files_name) references file_storage(files_name) on delete cascade".format(new_table_name)
+        conn.execute(sql)
+
+    def check_table(self, new_table_name):
+        new_table_name = new_table_name.upper()
+        sql = "select count(*) from all_tables where table_name = '{}'".format(new_table_name)
+        result = conn.execute(sql).scalar()
+        return result
 
     def read_sql(self, sql):
         data = pd.read_sql(sql, conn)
