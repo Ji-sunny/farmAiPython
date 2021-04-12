@@ -14,22 +14,15 @@ from sklearn.preprocessing import minmax_scale
 
 oracle_db = dbModule.Database()
 
-
 #다중회귀분석 
 def modeling(table_name, cols_X, col_y):
     data = oracle_db.read_data_all(table_name)
     X = data[cols_X].astype(float)
     y = data[col_y]
     X = minmax_scale(X)
-    X = pd.DataFrame(data=X, columns=cols_X)
-    # columns 유지되도록 수정
-
     df = pd.concat([X, y], axis=1)
-    df[y.name] = pd.to_numeric(df[y.name])
-
-    formula = "{}~".format(y.name) + "+".join(X.columns)
-    # columns 유지되도록 수정
-
+    df[col_y] = pd.to_numeric(df[col_y])
+    formula = "{}~".format(col_y) + "+".join(X.columns)
     model = smf.ols(formula=formula, data = df).fit()
     score = None
     report = None

@@ -18,7 +18,7 @@ def modeling(table_name, cols_X, col_y):
 
     train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.3)
     rf_model = RandomForestClassifier(n_estimators=10, random_state=10)
-    model = RFE(rf_model, n_features_to_select=int(len(X.columns) / 2))
+    model = RFE(rf_model, n_features_to_select=4)
     model.fit(train_X, train_y)
     score = model.score(test_X, test_y)
     y_pred = model.predict(test_X)

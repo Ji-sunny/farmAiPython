@@ -4,8 +4,7 @@ from sklearn.model_selection import train_test_split
 from scipy import stats
 from statsmodels.formula.api import ols
 from dbmodule import dbModule
-from pandas import DataFrame
-import pandas as pd 
+
 
 oracle_db = dbModule.Database()
 
