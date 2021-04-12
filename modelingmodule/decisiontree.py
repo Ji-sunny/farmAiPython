@@ -1,4 +1,4 @@
-from dbmodule import dbModule
+from dbmodule import dbModule, png_path
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
@@ -10,8 +10,9 @@ import pydot
 from IPython.core.display import Image
 from sklearn.metrics import classification_report
 from sklearn import metrics
-from time import time
+import datetime
 import os
+
 
 oracle_db = dbModule.Database()
 
@@ -43,11 +44,13 @@ def visualize(model, macro_name, pred_cols_X=None):
         else:
             pass
 
-    createFolder("C:/Users/COM/DecisionTree_png")
-    name = time()
-    export_graphviz(model, out_file="C:/Users/COM/DecisionTree_png/{}.dot".format(name), feature_names=x_cols)
-    (graph,) = pydot.graph_from_dot_file("C:/Users/COM/DecisionTree_png/{}.dot".format(name), encoding='utf8')
-    graph.write_png('C:/Users/COM/DecisionTree_png/{}.png'.format(name))
+    createFolder("{}".format(png_path.png_path()))
+    now = datetime.datetime.now()
+    nowDate = now.strftime('%Y%m%d')
+    name = '{}_{}'.format(macro_name, nowDate)
+    export_graphviz(model, out_file=png_path.png_path()+"{}.dot".format(name), feature_names=x_cols)
+    (graph,) = pydot.graph_from_dot_file(png_path.png_path()+"{}.dot".format(name), encoding='utf8')
+    graph.write_png(png_path.png_path()+'{}.png'.format(name))
 
-    result = 'C:/Users/COM/DecisionTree_png/{}.png'.format(name)
+    result = png_path.png_path()+'{}.png'.format(name)
     return result
