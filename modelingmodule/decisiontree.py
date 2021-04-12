@@ -43,11 +43,11 @@ def visualize(model, macro_name, pred_cols_X=None):
         else:
             pass
 
-    createFolder("./DecisionTree_png")
+    createFolder("C:/Users/COM/DecisionTree_png")
     name = time()
-    export_graphviz(model, out_file="./DecisionTree_png/{}.dot".format(name), feature_names=x_cols)
-    (graph,) = pydot.graph_from_dot_file("./DecisionTree_png/{}.dot".format(name), encoding='utf8')
-    graph.write_png('./DecisionTree_png/{}.png'.format(name))
+    export_graphviz(model, out_file="C:/Users/COM/DecisionTree_png/{}.dot".format(name), feature_names=x_cols)
+    (graph,) = pydot.graph_from_dot_file("C:/Users/COM/DecisionTree_png/{}.dot".format(name), encoding='utf8')
+    graph.write_png('C:/Users/COM/DecisionTree_png/{}.png'.format(name))
 
-    result = './DecisionTree_png/{}.png'.format(name)
+    result = 'C:/Users/COM/DecisionTree_png/{}.png'.format(name)
     return result

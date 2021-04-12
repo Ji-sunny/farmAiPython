@@ -20,8 +20,8 @@ def modeling(table_name, cols_X, col_y):
     X = data[cols_X].astype(float)
     y = data[col_y]
     df = pd.concat([X, y], axis=1)
-    df[y.name] = pd.to_numeric(df[y.name])
-    formula = "{}~".format(y.name) + "+".join(X.columns)
+    df[col_y] = pd.to_numeric(df[col_y])
+    formula = "{}~".format(col_y) + "+".join(X.columns)
     model = smf.ols(formula=formula, data = df).fit()
     score = None
     report = None
