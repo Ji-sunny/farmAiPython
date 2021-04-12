@@ -1,6 +1,7 @@
 import pandas as pd
 from dbmodule import dbModule
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_selection import RFE
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report

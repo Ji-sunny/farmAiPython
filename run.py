@@ -59,7 +59,7 @@ def visualize():
 
     visualized_data = model_visualize(macro_name, pred_cols_X)
 
-    visualized_data = visualized_data.to_json()
+    visualized_data = visualized_data.to_json(orient = 'records')
 
     return visualized_data
 
