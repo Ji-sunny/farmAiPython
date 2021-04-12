@@ -1,10 +1,7 @@
 
-from scipy import stats
 from dbmodule import dbModule
-from pandas import DataFrame
 import pandas as pd 
-from patsy import dmatrices
-import statsmodels.api as sm 
+from patsy.highlevel import dmatrices
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 oracle_db = dbModule.Database()
