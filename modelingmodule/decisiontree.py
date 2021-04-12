@@ -44,7 +44,6 @@ def visualize(model, macro_name, pred_cols_X=None):
             pass
 
     createFolder("./DecisionTree_png")
-
     name = time()
     export_graphviz(model, out_file="./DecisionTree_png/{}.dot".format(name), feature_names=x_cols)
     (graph,) = pydot.graph_from_dot_file("./DecisionTree_png/{}.dot".format(name), encoding='utf8')
