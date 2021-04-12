@@ -49,11 +49,32 @@ def run_model():
 
     return result
 
+# 모델링 전 변수 분석, 사전탐색
+# describe, corr_pearson, corr_spearman, vif
+@app.route('/pre_search', methods=['POST'])
+def pre_search():
+    params = request.get_json()
+    print(params)
+    model_name = params['model_name']
+    table_name = params['table_name']
+    cols_X = params['cols_X']
 
+    # 포스트맨 테스트를 위한 스트링 리스트화, 추후 제거
+    import ast
+    cols_X = ast.literal_eval(cols_X)
+    #
+
+    data = getattr(getattr(modelingmodule, model_name), model_name)(table_name, cols_X)
+
+    data = data.to_json(orient = 'records')
+
+    return data
+
+
+# 모델링 시각화 : 예측할 데이터를 받아 학습된 모델로 예측한 값 return
 @app.route('/visualize', methods=['POST'])
 def visualize():
     params = request.get_json()
-    print(params)
     macro_name = params['macro_name']
     pred_cols_X = params['pred_cols_X']
 

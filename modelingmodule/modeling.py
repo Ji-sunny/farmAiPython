@@ -21,13 +21,14 @@ def create_model():
         col_y = macros['col_y'][i].lower()
         cols_X = [x.lower() for x in cols_X.split(',')]
         model, score, report = getattr(getattr(modelingmodule, model_name), 'modeling')(table_name, cols_X, col_y)
-    print("학습성공")
+
     # 모델 저장
     for i in macros['macro_name']:
         joblib.dump(model, 'C:/Users/COM/folder/'+macro_name+'.model')
     # report json 형태로 변환
     if model_name != 'regression':
-        report = report.to_json()
-    print("저장완료")
+        report = report.reset_index().rename(columns={"index":" "})
+    report = report.to_json(orient = 'records')
+
     # score, report 저장
     oracle_db.modeling_done(macro_name, score, report)

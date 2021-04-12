@@ -9,10 +9,12 @@ import pandas as pd
 
 oracle_db = dbModule.Database()
 
-def corr_pearson(table_name, cols_X, col_y):
+def corr_pearson(table_name, cols_X):
     data = oracle_db.read_data_all(table_name)
-    X = data[cols_X]
-    y = data[col_y]
-    df = pd.concat([X, y], axis=1)
-    result = df.corr(method='pearson')
+
+    data = data[cols_X].astype(float)
+    data = data.corr(method='pearson')
+
+    result = data.reset_index().rename(columns={"index":" "})
+
     return result

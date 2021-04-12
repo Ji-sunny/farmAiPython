@@ -5,11 +5,10 @@ oracle_db = dbModule.Database()
 
 
 # =================================================================
-def describe(table_name, cols_X, col_y):
+def describe(table_name, cols_X):
     data = oracle_db.read_data_all(table_name)
-    X = data[cols_X]
-    y = data[col_y]
 
-    data = pd.concat([X, y], axis=1)
-    result = data.describe(include ='all')
+    data = data[cols_X].astype(float)
+    data = data.describe(include ='all')
+    result = data.reset_index().rename(columns={"index": " "})
     return result
