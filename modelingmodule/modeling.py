@@ -25,9 +25,13 @@ def create_model():
         joblib.dump(model, 'C:/Users/COM/folder/' + macro_name + '.model')
         print(model_name)
         # report json 형태로 변환
-        if model_name != 'regression':
+        if model_name == "regression":
+            pass
+        elif model_name =="scaleregression":
+            pass
+        else:
             report = report.reset_index().rename(columns={"index": " "})
             report = report.to_json(orient='records')
-
+        
         # score, report 저장
         oracle_db.modeling_done(macro_name, score, report)
