@@ -57,13 +57,10 @@ def pre_search():
     print(params)
     model_name = params['model_name']
     table_name = params['table_name']
-    cols_X = params['cols_x']
+    cols_X = params['cols_X']
 
-    for i, cols in enumerate(cols_X):
-        arr = []
-        for j in cols:
-            arr.append(j.lower())
-        cols_X[i] = arr
+    for i, name in enumerate(cols_X):
+        cols_X[i] = name.lower()
 
     data = getattr(getattr(modelingmodule, model_name), model_name)(table_name, cols_X)
 
