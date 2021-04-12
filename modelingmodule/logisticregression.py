@@ -27,17 +27,16 @@ def modeling(table_name, cols_X, col_y):
 
 # ========================== original version ============================
 
-def visualize(model, macro_name, pred_cols_X =None):  
+def visualize(model, macro_name, pred_cols_X = None ):  
 
-    
+    x_cols= oracle_db.read_sql("select cols_X from macro where macro_name = {}".format(macro_name))
+
     xx = np.linspace(-1, 1, model.n_features_in_*model.max_iter)
     xx = xx.reshape(model.max_iter, model.n_features_in_)
     XX = xx[:, np.newaxis]
     XX = XX.reshape(model.max_iter, model.n_features_in_)
     prob = model.predict_proba(XX)[:,: model.n_features_in_]
-    
-    
     pred_X =[pred_cols_X]
-    result = pd.DataFrame(data =  model.predict_proba(X)[0],
+    result = pd.DataFrame(data =  model.predict_proba(x_cols)[0],
                   columns=['predict'], index=model.classes_)
     return result

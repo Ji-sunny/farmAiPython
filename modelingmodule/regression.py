@@ -24,7 +24,8 @@ def modeling(table_name, col_X, col_y):
     formula = "{}~".format(y.name) + "+".join(X.columns)
     model = smf.ols(formula=formula, data = df).fit()
     score = None
-    return model, score
+    report = None
+    return model, score, report
 
 def visualize(model, macro_name, pred_cols_X =None):  
     a = str(model.params).split('\n')
