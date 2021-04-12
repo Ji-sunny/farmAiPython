@@ -57,11 +57,11 @@ def visualize():
     macro_name = params['macro_name']
     pred_cols_X = params['pred_cols_X']
 
-    visualized_data, score_data = model_visualize(macro_name, pred_cols_X)
+    visualized_data = model_visualize(macro_name, pred_cols_X)
 
     visualized_data = visualized_data.to_json()
 
-    return visualized_data, score_data
+    return visualized_data
 
 
 @app.route('/test', methods=['POST'])

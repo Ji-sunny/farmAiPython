@@ -26,7 +26,8 @@ def create_model():
     for i in macros['macro_name']:
         joblib.dump(model, 'C:/Users/COM/folder/'+macro_name+'.model')
     # report json 형태로 변환
-    report = report.to_json()
+    if model_name != 'regression':
+        report = report.to_json()
 
     # score, report 저장
     oracle_db.modeling_done(macro_name, score, report)
