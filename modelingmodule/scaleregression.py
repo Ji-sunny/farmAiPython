@@ -16,9 +16,9 @@ oracle_db = dbModule.Database()
 
 
 #다중회귀분석 
-def modeling(table_name, col_X, col_y):
+def modeling(table_name, cols_X, col_y):
     data = oracle_db.read_data_all(table_name)
-    X = data[col_X]
+    X = data[cols_X]
     y = data[col_y]
     X = minmax_scale(X)
     df = pd.concat([X, y], axis=1)
@@ -26,9 +26,13 @@ def modeling(table_name, col_X, col_y):
     formula = "{}~".format(y.name) + "+".join(X.columns)
     model = smf.ols(formula=formula, data = df).fit()
     score = None
-    return model, score
+    report = None
+    return model, score, report
 
 def visualize(model, macro_name, pred_cols_X =None):  
+    
+
+
     a = str(model.params).split('\n')
     coef = [float(a[i][-8:]) for i in range(len(a)-1)]
     b = str(model.bse).split('\n')

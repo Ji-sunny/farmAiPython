@@ -29,7 +29,8 @@ def modeling(table_name, cols_X, col_y):
 # ========================== original version ============================
 def visualize(model, macro_name, pred_cols_X =None):  
     
-    result = pd.DataFrame(data= np.c_[X.columns.values, model.get_support()])
+    x_cols= oracle_db.read_sql("select cols_X from macro where macro_name = {}".format(macro_name))
+    result = pd.DataFrame(data= np.c_[x_cols, model.get_support()])
     result.sort_values(by=1, ascending=False, inplace=True)
     
     return result
