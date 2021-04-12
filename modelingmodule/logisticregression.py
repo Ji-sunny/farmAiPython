@@ -37,6 +37,6 @@ def visualize(model, macro_name, pred_cols_X = None ):
     XX = XX.reshape(model.max_iter, model.n_features_in_)
     prob = model.predict_proba(XX)[:,: model.n_features_in_]
     pred_X =[pred_cols_X]
-    result = pd.DataFrame(data =  model.predict_proba(x_cols)[0],
+    result = pd.DataFrame(data =  model.predict_proba(pred_X)[0],
                   columns=['predict'], index=model.classes_)
     return result
