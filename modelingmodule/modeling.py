@@ -8,7 +8,8 @@ oracle_db = dbModule.Database()
 
 
 def create_model():
-    macros = oracle_db.read_data_all('macro')
+    sql = "select * from macro where macro_name not in (select macro_name from macro_done)"
+    macros = oracle_db.read_sql(sql)
 
     # 학습
     for i in range(len(macros)):
@@ -23,12 +24,9 @@ def create_model():
 
     # 모델 저장
     for i in macros['macro_name']:
-        print(i)
         joblib.dump(model, 'C:/Users/COM/folder/'+macro_name+'.model')
-    print(3)
     # report json 형태로 변환
     report = report.to_json()
 
-    print(report)
     # score, report 저장
-    oracle_db.add_score(macro_name, score, report)
+    oracle_db.modeling_done(macro_name, score, report)

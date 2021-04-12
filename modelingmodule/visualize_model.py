@@ -9,6 +9,7 @@ def model_visualize(macro_name, pred_cols_X):
     # 포스트맨 테스트를 위한 스트링 리스트화, 추후 제거
     import ast
     pred_cols_X = ast.literal_eval(pred_cols_X)
+    type(pred_cols_X)
 
     macro_data = oracle_db.read_macro(macro_name)
     model_name = macro_data['model_name'][0]
