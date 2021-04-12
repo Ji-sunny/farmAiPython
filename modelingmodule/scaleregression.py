@@ -18,7 +18,7 @@ oracle_db = dbModule.Database()
 #다중회귀분석 
 def modeling(table_name, cols_X, col_y):
     data = oracle_db.read_data_all(table_name)
-    X = data[cols_X]
+    X = data[cols_X].astype(float)
     y = data[col_y]
     X = minmax_scale(X)
     X = pd.DataFrame(data=X, columns=cols_X)

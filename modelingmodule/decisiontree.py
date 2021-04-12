@@ -18,7 +18,7 @@ oracle_db = dbModule.Database()
 
 def modeling(table_name, cols_X, col_y):
     data = oracle_db.read_data_all(table_name)
-    X = data[cols_X]
+    X = data[cols_X].astype(float)
     y = data[col_y]
     train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.3)
     model = DecisionTreeClassifier(criterion='entropy',

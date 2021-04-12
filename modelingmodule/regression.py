@@ -15,9 +15,9 @@ oracle_db = dbModule.Database()
 
 
 #다중회귀분석 
-def modeling(table_name, col_X, col_y):
+def modeling(table_name, cols_X, col_y):
     data = oracle_db.read_data_all(table_name)
-    X = data[col_X]
+    X = data[cols_X].astype(float)
     y = data[col_y]
     df = pd.concat([X, y], axis=1)
     df[y.name] = pd.to_numeric(df[y.name])
