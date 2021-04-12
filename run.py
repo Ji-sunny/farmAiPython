@@ -59,11 +59,6 @@ def pre_search():
     table_name = params['table_name']
     cols_X = params['cols_X']
 
-    # 포스트맨 테스트를 위한 스트링 리스트화, 추후 제거
-    import ast
-    cols_X = ast.literal_eval(cols_X)
-    #
-
     data = getattr(getattr(modelingmodule, model_name), model_name)(table_name, cols_X)
 
     data = data.to_json(orient = 'records')
