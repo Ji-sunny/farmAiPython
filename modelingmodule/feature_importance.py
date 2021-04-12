@@ -27,12 +27,12 @@ def modeling(table_name, cols_X, col_y):
 
 
 # ========================== original version ============================
+
 def visualize(model, macro_name, pred_cols_X):
-
-    x_cols = oracle_db.read_sql("select cols_X from macro where macro_name = '{}'".format(macro_name))
-
-
-    model.feature_importances_
+    sql = "select cols_x from macro where macro_name = '{}'".format(macro_name)
+    macros = oracle_db.read_sql(sql)
+    x_cols = macros['cols_x'][0]
+    x_cols = [x.lower() for x in x_cols.split(',')]
     result = pd.DataFrame(data = np.c_[x_cols,
                                  model.feature_importances_],
                       columns=['feature', 'importance'])
