@@ -21,13 +21,15 @@ def modeling(table_name, cols_X, col_y):
     X = data[cols_X]
     y = data[col_y]
     X = minmax_scale(X)
-    X = pd.DataFrame(X)
+    X = pd.DataFrame(data=X, columns=cols_X)
+    # columns 유지되도록 수정
 
     df = pd.concat([X, y], axis=1)
     df[y.name] = pd.to_numeric(df[y.name])
-    print(3)
+
     formula = "{}~".format(y.name) + "+".join(X.columns)
-    print(4)
+    # columns 유지되도록 수정
+
     model = smf.ols(formula=formula, data = df).fit()
     score = None
     report = None
