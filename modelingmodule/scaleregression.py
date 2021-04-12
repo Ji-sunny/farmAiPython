@@ -9,6 +9,7 @@ from dbmodule import dbModule
 import statsmodels.formula.api as smf
 from pandas import DataFrame
 import pandas as pd 
+from sklearn.preprocessing import minmax_scale
 
 
 oracle_db = dbModule.Database()
@@ -19,6 +20,7 @@ def modeling(table_name, col_X, col_y):
     data = oracle_db.read_data_all(table_name)
     X = data[col_X]
     y = data[col_y]
+    X = minmax_scale(X)
     df = pd.concat([X, y], axis=1)
     df[y.name] = pd.to_numeric(df[y.name])
     formula = "{}~".format(y.name) + "+".join(X.columns)

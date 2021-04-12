@@ -27,7 +27,7 @@ def modeling(table_name, cols_X, col_y):
 
 # ========================== original version ============================
 
-def visualize(model, pred_cols_X):
+def visualize(model, macro_name, pred_cols_X =None):  
 
     
     xx = np.linspace(-1, 1, model.n_features_in_*model.max_iter)
@@ -38,5 +38,6 @@ def visualize(model, pred_cols_X):
     
     
     pred_X =[pred_cols_X]
-    result = model.classes_, model.predict_proba(pred_X)[0]
-    return  result
+    result = pd.DataFrame(data =  model.predict_proba(X)[0],
+                  columns=['predict'], index=model.classes_)
+    return result

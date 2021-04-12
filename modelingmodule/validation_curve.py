@@ -36,6 +36,4 @@ def modeling(table_name, cols_X, col_y, model):
     gamma = param_range[test_scores_mean.argmax()]
     model = SVC(gamma=gamma).fit(train_X , train_y)
     score =model.score(test_X, test_y)
-
-
     return model, score
