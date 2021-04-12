@@ -12,8 +12,6 @@ def efarmdesigndetail(data, table_name):
 #    data = pd.read_csv(efarm, encoding='UTF-8',header=0)
 #    data["date"] = folder_names[0].split('_')[1]  # data열 추가
     #
-    print("efarmdesigndetail!!!! data 파라미터의 type확인하기")
-    print(type(data))
     data["site_code"] = data.site_code.str.replace("SITE_FARM", '')
     data["site_code"] = pd.to_numeric(data["site_code"])
     # site_code dtype str --> numpy.int64로 수정
