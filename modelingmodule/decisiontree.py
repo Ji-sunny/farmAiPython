@@ -1,4 +1,4 @@
-from dbmodule import dbModule, png_path
+from dbmodule import dbModule
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
@@ -12,7 +12,7 @@ from sklearn.metrics import classification_report
 from sklearn import metrics
 import datetime
 import os
-
+from dbmodule import folder_path
 
 oracle_db = dbModule.Database()
 
@@ -44,13 +44,15 @@ def visualize(model, macro_name, pred_cols_X=None):
         else:
             pass
 
-    createFolder("{}".format(png_path.png_path()))
+    path = folder_path.png_path()
+
+    createFolder("{}".format(path))
     now = datetime.datetime.now()
     nowDate = now.strftime('%Y%m%d')
     name = '{}_{}'.format(macro_name, nowDate)
-    export_graphviz(model, out_file=png_path.png_path()+"{}.dot".format(name), feature_names=x_cols)
-    (graph,) = pydot.graph_from_dot_file(png_path.png_path()+"{}.dot".format(name), encoding='utf8')
-    graph.write_png(png_path.png_path()+'{}.png'.format(name))
+    export_graphviz(model, out_file=path+"{}.dot".format(name), feature_names=x_cols)
+    (graph,) = pydot.graph_from_dot_file(path+"{}.dot".format(name), encoding='utf8')
+    graph.write_png(path+'{}.png'.format(name))
 
-    result = png_path.png_path()+'{}.png'.format(name)
+    result = path+'{}.png'.format(name)
     return result

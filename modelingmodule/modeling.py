@@ -3,7 +3,7 @@ import modelingmodule
 from dbmodule import dbModule
 import pandas as pd
 import joblib
-from dbmodule import model_path
+from dbmodule import folder_path
 
 oracle_db = dbModule.Database()
 
@@ -23,7 +23,7 @@ def create_model():
         model, score, report = getattr(getattr(modelingmodule, model_name), 'modeling')(table_name, cols_X, col_y)
 
         # 모델 저장
-        path = model_path.model_path()
+        path = folder_path.model_path()
         joblib.dump(model, path + macro_name + '.model')
         print(model_name)
         # report json 형태로 변환
