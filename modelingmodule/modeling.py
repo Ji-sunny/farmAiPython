@@ -3,6 +3,7 @@ import modelingmodule
 from dbmodule import dbModule
 import pandas as pd
 import joblib
+from dbmodule import model_path
 
 oracle_db = dbModule.Database()
 
@@ -22,16 +23,27 @@ def create_model():
         model, score, report = getattr(getattr(modelingmodule, model_name), 'modeling')(table_name, cols_X, col_y)
 
         # 모델 저장
-        joblib.dump(model, 'C:/Users/COM/folder/' + macro_name + '.model')
+        path = model_path.model_path()
+        joblib.dump(model, path + macro_name + '.model')
         print(model_name)
         # report json 형태로 변환
         if model_name == "regression":
             pass
-        elif model_name =="scaleregression":
+        elif model_name == "scaleregression":
             pass
         else:
             report = report.reset_index().rename(columns={"index": " "})
             report = report.to_json(orient='records')
-        
+
+        bar = ['logisticregression', 'feature_importance']
+        chart = ['rfe', 'regression', 'scaleregression']
+
+        if model_name in bar:
+            kind = 'bar'
+        elif model_name in chart:
+            kind = 'chart'
+        else:
+            kind = 'img'
+
         # score, report 저장
-        oracle_db.modeling_done(macro_name, score, report)
+        oracle_db.modeling_done(macro_name, score, report, kind)

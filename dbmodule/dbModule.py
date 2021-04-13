@@ -34,10 +34,10 @@ class Database():
         macro_data = pd.read_sql(sql, conn)
         return macro_data
 
-    def modeling_done(self, macro_name, score, report):
-        data = pd.DataFrame({'macro_name':macro_name, 'score':score, 'report':report}, index=[0])
+    def modeling_done(self, macro_name, score, report, kind):
+        data = pd.DataFrame({'macro_name':macro_name, 'score':score, 'report':report, 'kind':kind}, index=[0])
 
-        type_dict = {'macro_name': types.VARCHAR(20), 'score': types.FLOAT, 'report': types.CLOB}
+        type_dict = {'macro_name': types.VARCHAR(20), 'score': types.FLOAT, 'report': types.CLOB, 'type':types.VARCHAR(20)}
         data.to_sql('macro_done', conn, if_exists='append', index=False, dtype=type_dict)
 
     def set_storage(self, new_files_name, new_table_name):
