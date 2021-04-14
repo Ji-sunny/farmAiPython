@@ -25,7 +25,7 @@ def create_model():
         # 모델 저장
         path = folder_path.model_path()
         joblib.dump(model, path + macro_name + '.model')
-        print(model_name)
+
         # report json 형태로 변환
         if model_name == "regression":
             pass
@@ -47,3 +47,7 @@ def create_model():
 
         # score, report 저장
         oracle_db.modeling_done(macro_name, score, report, kind)
+
+        print(model_name)
+
+    print("모델저장 완료")

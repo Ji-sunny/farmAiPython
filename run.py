@@ -9,13 +9,16 @@ from modelingmodule import modeling
 import modelingmodule
 from modelingmodule.visualize_model import model_visualize
 from dbmodule import dbModule
-
+from apscheduler.schedulers.background import BackgroundScheduler
 
 oracle_db = dbModule.Database()
 
 app = Flask(__name__)
 cors = CORS(app)
 
+scheduler = BackgroundScheduler(daemon=True)
+scheduler.start()
+scheduler.add_job(modeling.create_model, 'cron', hour=0)
 
 @app.route('/preprocess', methods=['GET'])
 def preprocess():
@@ -48,6 +51,7 @@ def run_model():
     result = "success"
 
     return result
+
 
 # 모델링 전 변수 분석, 사전탐색
 # describe, corr_pearson, corr_spearman, vif
@@ -85,15 +89,6 @@ def visualize():
         visualized_data = visualized_data.to_json(orient = 'records')
 
     return visualized_data
-
-
-@app.route('/test', methods=['POST'])
-def test():
-    print("hello")
-    params = json.loads(request.get_data(), encoding='utf-8')
-    print(params)
-    result = {"result": "success"}
-    return jsonify(result)
 
 
 if __name__ == "__main__":
