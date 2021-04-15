@@ -24,58 +24,56 @@ def merge_table(table_names, sel_cols, stnd_cols):
             for j in cols:
                 arr.append(j.lower())
             stnd_cols[i] = arr
-        for i, name in enumerate(table_names):
-            table_names[i] = name.lower()
 
 
         # new_table_name 생성
-        name_dict = {'boxair': 'ba',
-                     'box': 'b',
-                     'boxiocrops': 'bi',
-                     'efarmdesign': 'eds',
-                     'efarmdesigndetail': 'edd',
-                     'efarmdevice': 'edv',
-                     'efarmeventsdetail': 'eed',
-                     'efarmeventssynced': 'ees',
-                     'efarmfield': 'ef',
-                     'efarmschedule': 'es',
-                     'farmingbox': 'fbx',
-                     'fielddef': 'fd',
-                     'fielddeflog': 'fdl',
-                     'plantgrowthdaygroup': 'gdg',
-                     'plantgrowthdaygroupday': 'gdgd',
-                     'plantgrowthdb': 'gd',
-                     'plantgrowthdbrep': 'gdr',
-                     'plantgrowthsensor': 'gsr',
-                     'plantgrowthstep': 'gst',
-                     'plantgrowthtimegroup': 'gtg',
-                     'plantgrowthtimegrouptime': 'gtgt',
-                     'plantgrowthunit': 'gu',
-                     'sitefarm3': 'sf3',
-                     'sitefarm4': 'sf4',
-                     'sitefarm5': 'sf5',
-                     'sitefarm6': 'sf6',
-                     'sitefarm7': 'sf7',
-                     'sitefarm8': 'sf8',
-                     'sitefarm9': 'sf9',
-                     'sitefarm10': 'sf10',
-                     'sitefarm11': 'sf11',
-                     'sitefarm12': 'sf12',
-                     'sitefarm13': 'sf13',
-                     'stevent': 'se',
-                     'stfacilitiescode': 'sftc',
-                     'stfarmcode': 'sfmc',
-                     'stlocationcode': 'slc',
-                     'stmember': 'sm',
-                     'stmemberfacilities': 'smf',
-                     'stmemberlocation': 'sml',
-                     'stmembersite': 'sms',
-                     'stnoti': 'sn',
-                     'strtu': 'sr',
-                     'stseason': 'ss',
-                     'stsiteinfo': 'ssi',
-                     'tbcctvimage': 'tci',
-                     'tbcctvpreset': 'tcp'}
+        name_dict = {'BOXAIR':'BA',
+                        'BOX':'B',
+                        'BOXIOCROPS':'BI',
+                        'EFARMDESIGN':'EDS',
+                        'EFARMDESIGNDETAIL':'EDD',
+                        'EFARMDEVICE':'EDV',
+                        'EFARMEVENTSDETAIL':'EED',
+                        'EFARMEVENTSSYNCED':'EES',
+                        'EFARMFIELD':'EF',
+                        'EFARMSCHEDULE':'ES',
+                        'FARMINGBOX':'FBX',
+                        'FIELDDEF':'FD',
+                        'FIELDDEFLOG':'FDL',
+                        'PLANTGROWTHDAYGROUP':'GDG',
+                        'PLANTGROWTHDAYGROUPDAY':'GDGD',
+                        'PLANTGROWTHDB':'GD',
+                        'PLANTGROWTHDBREP':'GDR',
+                        'PLANTGROWTHSENSOR':'GSR',
+                        'PLANTGROWTHSTEP':'GST',
+                        'PLANTGROWTHTIMEGROUP':'GTG',
+                        'PLANTGROWTHTIMEGROUPTIME':'GTGT',
+                        'PLANTGROWTHUNIT':'GU',
+                        'SITEFARM3':'SF3',
+                        'SITEFARM4':'SF4',
+                        'SITEFARM5':'SF5',
+                        'SITEFARM6':'SF6',
+                        'SITEFARM7':'SF7',
+                        'SITEFARM8':'SF8',
+                        'SITEFARM9':'SF9',
+                        'SITEFARM10':'SF10',
+                        'SITEFARM11':'SF11',
+                        'SITEFARM12':'SF12',
+                        'SITEFARM13':'SF13',
+                        'STEVENT':'SE',
+                        'STFACILITIESCODE':'SFTC',
+                        'STFARMCODE':'SFMC',
+                        'STLOCATIONCODE':'SLC',
+                        'STMEMBER':'SM',
+                        'STMEMBERFACILITIES':'SMF',
+                        'STMEMBERLOCATION':'SML',
+                        'STMEMBERSITE':'SMS',
+                        'STNOTI':'SN',
+                        'STRTU':'SR',
+                        'STSEASON':'SS',
+                        'STSITEINFO':'SSI',
+                        'TBCCTVIMAGE':'TCI',
+                        'TBCCTVPRESET':'TCP'}
 
         new_table_names = []
         for i in table_names:
@@ -85,19 +83,18 @@ def merge_table(table_names, sel_cols, stnd_cols):
         for i in new_table_names:
             new_table_name.append(name_dict[i])
 
-        new_table_name = '_'.join(new_table_name) + '_new'
+        new_table_name = '_'.join(new_table_name) + '_NEW'
 
         for i, table_name in enumerate(table_names):
             globals()['data{}'.format(i)] = oracle_db.read_data_all(table_name)
             globals()['data{}'.format(i)] = globals()['data{}'.format(i)][sel_cols[i]]
         stnd_cols_list = set(itertools.chain(*stnd_cols))
 
-        for stnd_col in stnd_cols_list:  # 기준열들["11","33","29"]
+        for stnd_col in stnd_cols_list:
             if not(data.empty) & (stnd_col not in data.columns):
                 stnd_cols_list.append(stnd_col)
                 pass
             else:
-                # 조인하려는 테이블 종류 받기
                 join_table = []
                 for j in range(len(table_names)):
                     if stnd_col in stnd_cols[j]:

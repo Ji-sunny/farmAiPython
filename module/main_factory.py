@@ -8,8 +8,6 @@ oracle_db = dbModule.Database()
 
 def preprocess_table(table_name, files_name):
     try:
-        # 테이블 이름 소문자 처리
-        table_name = table_name.lower()
         # data 불러오기
         data = oracle_db.read_data(table_name, files_name)
 
@@ -19,11 +17,11 @@ def preprocess_table(table_name, files_name):
         data = getattr(getattr(module, table_name), table_name)(data, table_name)
 
         # files_name 변경
-        data['files_name'] = files_name + '_new'
+        data['files_name'] = files_name + '_NEW'
 
         # file_storage에 tables_name, files_name 추가
-        new_table_name = table_name + '_new'
-        new_files_name = files_name + '_new'
+        new_table_name = table_name + '_NEW'
+        new_files_name = files_name + '_NEW'
 
         oracle_db.set_storage(new_files_name, new_table_name)
 
