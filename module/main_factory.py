@@ -14,7 +14,7 @@ def preprocess_table(table_name, files_name):
         # print("data1 : ", data)
         # data 전처리
         # (module 패키지 내에 table_name이름을 가진 모듈 내 table_name 함수 호출)
-        data = getattr(getattr(module, table_name), table_name)(data, table_name)
+        data = getattr(getattr(module, table_name.lower()), table_name.lower())(data, table_name.lower())
 
         # files_name 변경
         data['files_name'] = files_name + '_NEW'
