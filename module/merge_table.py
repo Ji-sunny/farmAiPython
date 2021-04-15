@@ -12,7 +12,7 @@ def merge_table(table_names, sel_cols, stnd_cols):
         # table_name None값 제거
         for i in range(table_names.count(None)):
             table_names.pop()
-        
+
         # 소문자로 변경
         for i, cols in enumerate(sel_cols):
             arr = []
