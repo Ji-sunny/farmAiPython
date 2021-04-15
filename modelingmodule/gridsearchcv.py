@@ -57,11 +57,11 @@ def modeling(table_name, cols_X, col_y, model):
         model = GridSearchCV(rf, param_grid=params, cv=5)
         
 
-        model.fit(test_X, test_y)
-        score = model.score(test_X, test_y)
-        y_pred = model.predict(test_X)
-        report = metrics.classification_report(test_y, y_pred, output_dict=True)
-        report = pd.DataFrame(report).transpose()
-  
+    model.fit(test_X, test_y)
+    score = model.score(test_X, test_y)
+    y_pred = model.predict(test_X)
+    report = metrics.classification_report(test_y, y_pred, output_dict=True)
+    report = pd.DataFrame(report).transpose()
+
     return model, score, report 
   

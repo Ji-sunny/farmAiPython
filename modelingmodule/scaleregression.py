@@ -20,11 +20,12 @@ def modeling(table_name, cols_X, col_y):
     X = data[cols_X].astype(float)
     y = data[col_y]
     X = minmax_scale(X)
+    X = pd.DataFrame(X, columns=cols_X)
     df = pd.concat([X, y], axis=1)
     df[col_y] = pd.to_numeric(df[col_y])
     formula = "{}~".format(col_y) + "+".join(X.columns)
     model = smf.ols(formula=formula, data = df).fit()
-    score = None
+    score = model.rsquared
     report = None
     return model, score, report
 
