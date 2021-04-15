@@ -7,6 +7,8 @@ def sitefarm11(data, table_name):
 
     #결측치 처리 (pd -> np)
     imp_mean = SimpleImputer(strategy='mean')
+    if "files_name" in col:
+        data.drop(['files_name'], axis=1, inplace=True)
     imp_mean.fit(data)
     A=  imp_mean.transform(data)
     data = pd.DataFrame(A)

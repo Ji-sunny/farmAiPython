@@ -1,6 +1,6 @@
 import pandas as pd
 
-def st_farm_code(data, table_name):
+def stfarmcode(data, table_name):
 
     dummy = pd.get_dummies(data.name)
     data.reset_index(drop=True, inplace=True)
