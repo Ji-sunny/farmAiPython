@@ -19,3 +19,10 @@
    > Web: Tomcat, Flask    
    > Tools: PyCharm, Jupyter notebook, IntelliJ         
    
+▶ 화면구성
+   1. 메인 페이지    
+   >![main](https://user-images.githubusercontent.com/76515877/140936520-1656753b-9549-4685-8c79-e79be3676e37.jpg)     
+   3. 모델링 페이지    
+   >![modeling](https://user-images.githubusercontent.com/76515877/140936107-1efa68ad-5df6-467b-b757-45d990fc37c0.jpg)      
+   4. 결과 확인 페이지     
+   >![visual](https://user-images.githubusercontent.com/76515877/140936351-413dd05d-65db-4063-9061-944c552444cc.jpg)
